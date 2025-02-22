@@ -18,5 +18,5 @@ This project contains an Ansible playbook to manage AWS EC2 instances based on i
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/AviorAtar/Ansible.git
+   git clone https://github.com/ataravior/Ansible.git
    cd Ansible.git
