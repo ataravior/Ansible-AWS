@@ -1,0 +1,19 @@
+---
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+filters:
+  instance-state-name: running
+  tag:Managed: "true"
+  tag:Owner: "avioratar"
+keyed_groups:
+  - key: tags.Managed | default('false') | string
+    prefix: managed_
+compose:
+  ansible_host: public_ip_address
+  ansible_ec2_tag_Service: tags.Service | default('httpd')
+  ansible_ec2_tag_Version: tags.Version | default('latest')
+  ansible_ec2_tag_Restart: tags.Restart | default('Sunday at 6:00 am')
+  ansible_ec2_tag_Name: tags.Name
+hostname:
+  - tag: Name

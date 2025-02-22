@@ -1,0 +1,4 @@
+- name: Restart Service
+  service:
+    name: "{{ ansible_ec2_tag_Service }}"
+    state: restarted

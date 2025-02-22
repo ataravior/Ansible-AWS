@@ -1,0 +1,19 @@
+---
+- name: Debug Restart Tag
+  debug:
+    msg: "{{ ansible_ec2_tag_Restart }}" 
+
+- name: Convert Restart Tag to Cron Format 
+  set_fact:
+    cron_hour: "{{ ansible_ec2_tag_Restart.split(' ')[2].split(':')[0] }}" 
+    cron_weekday: "{{ ansible_ec2_tag_Restart.split(' ')[0] | lower }}" 
+
+- name: Create a cron job for restart 
+  cron: 
+    name: "Restart Instance" 
+    minute: "0" 
+    hour: "{{ cron_hour }}" 
+    weekday: "{{ cron_weekday }}" 
+    job: "sudo reboot" 
+    cron_file: "/etc/cron.d/restart_instance" 
+    user: root

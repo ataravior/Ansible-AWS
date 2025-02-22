@@ -1,0 +1,7 @@
+- name: Manage AWS EC2 Instances
+  hosts: managed__true
+  become: true
+  roles:
+    - common
+    - service_setup
+    - restart

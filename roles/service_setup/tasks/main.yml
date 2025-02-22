@@ -1,0 +1,23 @@
+---
+- name: Debug Service and Version Tags
+  debug:
+    msg: "Installing service: {{ ansible_ec2_tag_Service | default('nginx') }} | Version: {{ ansible_ec2_tag_Version | default('latest') }}"
+
+- name: Install the service (Amazon Linux)
+  yum:
+    name: "{{ ansible_ec2_tag_Service | default('nginx') }}"
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure correct service version (Amazon Linux)
+  shell: "yum install -y {{ ansible_ec2_tag_Service | default('nginx') }}"
+  when: ansible_os_family == "RedHat"
+  register: service_version_output
+  changed_when: "'Nothing to do' not in service_version_output.stdout"
+
+- name: Start and enable the service
+  service:
+    name: "{{ ansible_ec2_tag_Service | default('nginx') }}"
+    state: started
+    enabled: yes
+  when: ansible_os_family == "RedHat"

@@ -1,0 +1,20 @@
+- name: Update system packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install cron package
+  yum:
+    name: cronie
+    state: present
+
+- name: Ensure cron service is running
+  service:
+    name: crond
+    state: started
+    enabled: yes
+  become: true
+
+- name: Set hostname based on tag
+  command: hostnamectl set-hostname "{{ ansible_ec2_tag_Name }}"
+  become: true
