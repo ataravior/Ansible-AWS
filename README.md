@@ -14,7 +14,7 @@ This project contains an Ansible playbook to manage AWS EC2 instances based on i
   - `Managed: true` (for instances to be managed)
   - `Name`, `Service`, `Version`, and `Restart`
 
-## setup
+## Setup
 
 1. Clone this repository:
    ```bash
